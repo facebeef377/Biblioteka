@@ -1,0 +1,64 @@
+<h3>Lista wypożyczeń</h3>
+<br /><br />
+<table class="table" ng-if="user.type == 'admin'">
+  <thead>
+    <th ng-click="sortBy('id')" class="right pointer inl">
+      <span style="font-size: 80%">ID<span class="sortorder" ng-show="propertyName === 'id'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('reader.name')" class="right pointer inl">
+      <span style="font-size: 80%">Imię i nazwisko<span class="sortorder" ng-show="propertyName === 'reader.name'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('book.title')" class="right pointer inl">
+      <span style="font-size: 80%">Nazwa książki<span class="sortorder" ng-show="propertyName === 'book.title'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('created_on')" class="right pointer inl">
+      <span style="font-size: 80%">Data wypożyczenia<span class="sortorder" ng-show="propertyName === 'created_on'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('expiration_date')" class="right pointer inl">
+      <span style="font-size: 80%">Data zwrotu<span class="sortorder" ng-show="propertyName === 'expiration_date'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th>Pozostało dni</th>
+    <th>Zwróć</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in leases | orderBy:propertyName:reverse | filter:search:filterMyData">
+      <td>{{x.id}}</td>
+      <td>{{x.reader.name}}</td>
+      <td>{{x.book.title}}</td>
+      <td>{{x.created_on | date:'yyyy-MM-dd'}}</td>
+      <td>{{x.expiration_date | date:'yyyy-MM-dd'}}</td>
+      <td>{{x.expiration_date - x.created_on | milisecondFilter}}</td>
+      <td><button ng-if="x.return_date == null" ng-click="deleteLease(x)" class="btn btn-danger">Zwróć</button><span ng-if="x.return_date != null">Zwrócono {{x.return_date | date:'yyyy-MM-dd'}}</span></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="table" ng-if="user.type != 'admin'">
+  <thead>
+    <th ng-click="sortBy('id')" class="right pointer inl">
+      <span style="font-size: 80%">ID<span class="sortorder" ng-show="propertyName === 'id'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('book.title')" class="right pointer inl">
+      <span style="font-size: 80%">Nazwa książki<span class="sortorder" ng-show="propertyName === 'book.title'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('created_on')" class="right pointer inl">
+      <span style="font-size: 80%">Data wypożyczenia<span class="sortorder" ng-show="propertyName === 'created_on'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th ng-click="sortBy('expiration_date')" class="right pointer inl">
+      <span style="font-size: 80%">Data zwrotu<span class="sortorder" ng-show="propertyName === 'expiration_date'" ng-class="{reverse: reverse}"></span></span>
+    </th>
+    <th>Pozostało dni</th>
+    <th>Zwróć</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in leases | orderBy:propertyName:reverse | filter:search:filterMyData" ng-if="x.reader.id == user.id">
+      <td>{{x.id}}</td>
+      <td>{{x.book.title}}</td>
+      <td>{{x.created_on | date:'yyyy-MM-dd'}}</td>
+      <td>{{x.expiration_date | date:'yyyy-MM-dd'}}</td>
+      <td>{{x.expiration_date - x.created_on | milisecondFilter}}</td>
+      <td><button ng-if="x.return_date == null" ng-click="deleteLease(x)" class="btn btn-danger">Zwróć</button><span ng-if="x.return_date != null">Zwrócono {{x.return_date | date:'yyyy-MM-dd'}}</span></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+<meta charset="utf-8">
+
+<head>
+  <link href="assets/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+  <style>
+    .sortorder.reverse:after {
+        content: '\25bc';
+    }
+    .sortorder:after {
+        content: '\25b2';
+    }
+  </style>
+  <title>Biblioteka</title>
+</head>
+
+<body ng-app="app" ng-controller="appController" ng-init="initVars_admin()">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" ng-if="user.type=='admin'">Admin - {{user.name}}</a>
+    <a class="navbar-brand" href="#" ng-if="user.type!='admin'">{{user.name}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a href="#/books" ng-click="getBooks()" class="nav-link">Książki</a>
+        </li>
+        <li class="nav-item" ng-if="user.id">
+          <a href="#/authors" ng-click="getAuthors()" class="nav-link">Autorzy</a>
+        </li>
+        <li class="nav-item" ng-if="user.id">
+          <a href="#/taken" ng-click="getLeases()" class="nav-link">Wypożyczenia</a>
+        </li>
+        <li class="nav-item" ng-if="!user.id">
+          <a href="#/login" class="nav-link">Logowanie</a>
+        </li>
+        <li class="nav-item" ng-if="!user.id">
+          <a href="#/register" class="nav-link">Rejestracja</a>
+        </li>
+        <li class="nav-item" ng-if="user.id">
+          <a ng-click="logout()" class="nav-link">Wyloguj</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br /><br />
+  <div class="tab-content" id="nav-tabContent">
+    <div class="container" id="nauczyciele">
+      <div ng-view id="ngView"></div>
+    </div>
+  </div>
+
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <script src="assets/angular/angular.js"></script>
+  <script src="assets/angular/angular-route.js"></script>
+  <script src="assets/angular/angular-storage.js"></script>
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+  <script src="assets/appController.js"></script>
+  <script src="assets/appRouter.js"></script>
+  <script src="assets/appModules.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<h3 ng-if="!author.id">Dodaj autora</h3>
+<h3 ng-if="author.id">Edytuj autora</h3>
+
+{{author}}
+
+<br /><br />
+<form style="max-width: 400px; margin: auto;">
+  <label>Imię i nazwisko</label>
+  <input type="text" class="form-control" ng-model="author.name">
+  <br />
+  <center><button class="btn btn-success" ng-click="addAuthor()">Zapisz</button></center>
+</form>

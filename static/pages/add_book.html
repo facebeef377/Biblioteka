@@ -1,0 +1,18 @@
+<h3 ng-if="!book.id">Dodaj książkę</h3>
+<h3 ng-if="book.id">Edytuj książkę</h3>
+<br /><br />
+<form style="max-width: 400px; margin: auto;">
+  <label>Nazwa</label>
+  <input type="text" class="form-control" ng-model="book.title">
+  <br />
+  <label>Ilość</label>
+  <input type="number" class="form-control" ng-model="book.quantity">
+  <br />
+  <label>Autor</label>
+  <select ng-model="book.author.id" class="form-control">
+    <option value="">Wybierz autora</option>
+    <option value="{{x.id}}" ng-repeat="x in authors">{{x.name}}</option>
+  </select>
+  <br />
+  <center><button class="btn btn-success" ng-click="addBook()">Zapisz</button></center>
+</form>
